@@ -1,0 +1,83 @@
+{% extends 'base.html.twig'%}
+{% block body %}
+	<div class="jumbotron">
+		<h1>{{critique.title}}</h1>
+		<p class="lead">Ecrit le
+			{{critique.createdAt | date("d/m/Y")}}
+			à
+			{{critique.createdAt | date("H:i")}}
+			dans la catégorie
+			{{  critique.category.title }}</p>
+		<hr class="my-4">
+		{{critique.content | raw }}
+
+		<div class="container d-flex  justify-content-center">
+			<div class="d-flex flex-column border border-primary p-3">
+
+
+				<h5>Note :</h5>
+				<hr class="mt-2 mb-2 bg-primary">
+
+				<h5 class="d-flex justify-content-center">{{ critique.note | raw}}/5</h5>
+
+			</div>
+		</div>
+
+
+		{% if is_granted('ROLE_ADMIN') %}
+			<div class="d-flex mt-2">
+				<a href="{{path('blog_edit_critique',{'id':critique.id})}}" class="btn btn-success btn-lg">Changer</a>
+				<a href="{{path('blog_delete_critique',{'id':critique.id})}}" class="btn btn-danger ml-3 btn-lg">Supprimer</a>
+			</div>
+		{% endif %}
+
+	</div>
+
+	{% if app.user and app.user.enabled %}
+		<div class="container  bg-secondary text-white mb-2 p-3">
+			{{ form_start(commentCritiqueForm)}}
+			{{  form_row(commentCritiqueForm.author, {'label' : "Pseudo",'attr': {'placeholder': 'Nom de l\'auteur'}}) }}
+        {{  form_row(commentCritiqueForm.content, {'label' : "Commentaire",'attr': {'placeholder': 'Votre contenu'}}) }}
+        <button type="submit" class="btn btn-success">Commenter</button>
+    {{form_end(commentCritiqueForm)}}
+			</div>
+{% else %}
+        <h5>Vous ne pouvez pas commenter si vous n'etes pas connecté veuillez allez vous <a href="{{path('security_login')}}">Connectez </a> sinon venez vous <a href="{{path('security_registration')}}">Inscrire</a> ou veuiller regarder votre boite mail pour cliquer sur le lien d'inscription si ce n'est pas déjà fait </h5>
+{% endif %}
+
+<section id="commentaire_Critique">
+{% if critique.commentCritiques | length <= 1 %}
+
+    <h3>{{critique.commentCritiques | length}}
+			Commentaire :</h3>
+	{% else %}
+
+		<h3>{{critique.commentCritiques | length}}
+			Commentaires :</h3>
+
+	{% endif %}
+
+	{% for commentCritique in critique.commentCritiques %}
+
+
+		<div class="container-fluid bg-light mb-3 p-3">
+			<h5>{{ commentCritique.author}}(<small>{{commentCritique.createdAt | date('d/m/Y à H:i')}}</small>)</h5>
+			<p>{{commentCritique.content | raw}}</p>
+
+			{% if commentCritique.signalement == 0 %}
+
+				<a href="{{path('blog_signalement_critique',{'id':commentCritique.id})}}" class="btn btn-danger mb-2">signaler</a>
+
+			{% else %}
+				<p>
+					Ce commentaire est déjà signalé</p>
+			{% endif %}
+
+		</div>
+
+	{% endfor %}
+
+
+</section>
+{% endblock %}
+

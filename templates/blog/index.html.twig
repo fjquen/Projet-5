@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article
+{% endblock %}
+
+{% block body %}
+	<section class="article">
+		{% for article in articles %}
+			
+
+          <div class="jumbotron">
+<h1>{{article.title}}</h1>
+
+  <p class="lead">Ecrit le
+					{{article.createdAt | date("d/m/Y")}}
+					à
+					{{article.createdAt | date("H:i")}}
+					dans la catégorie
+					{{ article.categoryNews.title }}</p>
+					<img class="w-75" src="{{article.image}}">
+  <hr class="my-4">
+  <p>{{article.content | striptags | truncate (550, true) | raw}}</p>
+  <p class="lead">
+    <a href="{{path('blog_show_article', {'id':article.id})}}" class="btn btn-primary btn-lg" role="button">Lire la suite</a>
+  </p>
+</div>
+
+		{% endfor %}
+
+	</section>
+	{{ knp_pagination_render(articles) }}
+{% endblock %}
+

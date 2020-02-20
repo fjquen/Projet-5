@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% form_theme formArticle 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+	{% if app.user %}
+		<h1>Création d'un article</h1>
+
+		{{ form_start(formArticle)}}
+
+		{{ form_row(formArticle.title,{'attr':{'placeholder':" Ajouter un titre "}})}}
+		{{ form_row(formArticle.category_news)}}
+		{{ form_row(formArticle.content,{'attr':{'placeholder':" Ajouter un article "}})}}
+		{{ form_row(formArticle.image,{'attr':{'placeholder':" Ajouter une image de couverture"}})}}
+
+		<button type="submit" class="btn btn-success">
+			{% if editMode %}
+				Changer un article
+			{% else %}
+				Ajouter un article
+			{% endif %}
+		</button>
+		{{ form_end(formArticle)}}
+
+
+	{% else %}
+	 <p>Vous n'avez pas accès à cette fonctionnalité</p>
+	{% endif %}
+
+{% endblock %}

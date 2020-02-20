@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% form_theme formCritique 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+
+	{% if app.user %}
+
+
+		<h1>Création d'une critique</h1>
+
+		{{ form_start(formCritique)}}
+
+		{{ form_row(formCritique.title,{'attr':{'placeholder':" Ajouter un titre "}})}}
+		{{ form_row(formCritique.note,{'attr':{'placeholder':" Ajouter une critique "}})}}
+		{{ form_row(formCritique.category)}}
+		{{ form_row(formCritique.content,{'attr':{'placeholder':" Ajouter une critique "}})}}
+
+
+		{{ form_row(formCritique.image,{'attr':{'placeholder':" Ajouter une image de couverture"}})}}
+
+		<button type="submit" class="btn btn-success">
+			{% if editModeCritique %}
+				Changer une critique
+			{% else %}
+				Ajouter une critique
+			{% endif %}
+		</button>
+		{{form_end(formCritique)}}
+	    
+		{% else %}
+		 <p>Vous n'avez pas accès à cette fonctionnalité</p>
+		{% endif %}
+
+{% endblock %}

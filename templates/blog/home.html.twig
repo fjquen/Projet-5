@@ -1,0 +1,86 @@
+{% extends 'base.html.twig'%}
+
+
+{% block body %}
+
+	<div class="jumbotron">
+		<h1>Bienvenue sur DocMedia</h1>
+		<hr class="my-4">
+		<p>Le site sur lequel vous naviguez est un site de partage de critique et de news sur le monde du divertissement pop culture comme les série, les films et les animes. Les mordérateurs de ce site sont des amateurs passionnés et dévoué à ce divertissement qu'est la pop culture d'aujourd'hui. Sur ceux bonne visite.</p>
+		<table id="tableau_employers">
+			<tr>
+				<th>Films</th>
+				<th>Année Production</th>
+			</tr>
+		</table>
+		<div class="container">
+
+			<h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Articles Récents :</h1>
+
+			<hr class="mt-2 mb-5">
+
+			<div class="row text-center text-lg-left">
+				{% for article in articles | reverse %}
+					<div class="col-lg-3 col-md-4 col-6">
+						<a href="{{path('blog_show_article', {'id':article.id})}}" class="d-block mb-4 h-100">
+							<figure class="homefigure">
+								<img class="img-fluid img-thumbnail " src="{{article.image}}" alt="">
+								<figcaption class="home">{{article.content | striptags | truncate (55, true) | raw}}</figcaption>
+							</figure>
+						</a>
+					</div>
+				{% endfor %}
+
+
+			</div>
+
+		</div>
+
+		<div class="container">
+
+			<h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Critiques Récents :</h1>
+
+			<hr class="mt-2 mb-5">
+
+			<div class="row text-center text-lg-left">
+
+
+				{% for  critique in critiques | reverse %}
+
+					<div class="col-lg-3 col-md-4 col-6">
+						<a href="{{path('blog_show_critique',{'id':critique.id})}}" class="d-block mb-4 h-100">
+							<figure class="homefigure">
+
+								<img class="img-fluid img-thumbnail" src="{{critique.image}}" alt="">
+
+
+								<figcaption class="home">Note :
+									{{ critique.note | raw}}/5
+									<hr class="mt-2 mb-2 bg-white">
+
+									{{critique.content | striptags | truncate (55, true) | raw}}</figcaption>
+							</figure>
+						</a>
+					</div>
+				{% endfor %}
+
+			</div>
+		</div>
+
+	</div>
+
+
+	<script>
+		var req = new XMLHttpRequest();
+		req.open("GET", "http://api.betaseries.com/movies/upcoming?key=78434ff63412&limit=10", false);
+		req.send(null);
+		var obj = JSON.parse(req.responseText);
+		for (i = 0; i < obj.movies.length; i ++) {
+			var newTR = document.createElement("tr"); // je crée l'élément
+			newTR.innerHTML = "<td>" + obj.movies[i].title + "</td> <td>" + obj.movies[i].production_year + "</td>"; // je défini son contenu
+			document.getElementById("tableau_employers").appendChild(newTR); // je l'ajoute au tableau
+		}
+	</script>
+
+{% endblock %}
+

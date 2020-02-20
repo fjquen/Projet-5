@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Liste de commentaire signalé :</h1>
+
+	{% for comments in commentCritiques %}
+		{% if comments.signalement == 1 %}
+
+	  <div class="container-fluid bg-warning text-white mb-3 p-3">
+<h5>{{ comments.author}}(<small>{{comments.createdAt | date('d/m/Y à H:i')}}</small>)</h5>
+{{comments.content | raw}}
+
+					<a href="{{path('blog_delete_comment_critique',{'id':comments.id})}}" class="btn btn-danger">Supprimer</a>
+
+						<a href="{{path('blog_ignored_critique',{'id':comments.id})}}" class="btn btn-info">Ignorer</a>
+
+</div>
+			
+		{% endif %}
+	{% endfor %}
+
+	{% for comment in commentArticle %}
+		{% if comment.signalement == 1 %}
+
+		  <div class="container-fluid bg-warning text-white mb-3 p-3">
+<h5>{{ comment.author}}(<small>{{comment.createdAt | date('d/m/Y à H:i')}}</small>)</h5>
+{{comment.content | raw}}
+
+					<a href="{{path('blog_delete_comment',{'id':comment.id})}}" class="btn btn-danger">Supprimer</a>
+						<a href="{{path('blog_ignored',{'id':comment.id})}}" class="btn btn-info">Ignorer</a>
+
+</div>
+
+		
+		{% endif %}
+	{% endfor %}
+
+{% endblock %}
+

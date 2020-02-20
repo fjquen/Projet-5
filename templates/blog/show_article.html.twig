@@ -1,0 +1,75 @@
+{% extends 'base.html.twig'%}
+{% block body %}
+
+<div class="jumbotron">
+  <h1>{{article.title}}</h1>
+  <p class="lead">Ecrit le
+			{{article.createdAt | date("d/m/Y")}}
+			à
+			{{article.createdAt | date("H:i")}}
+			dans la catégorie
+			{{  article.categoryNews.title }}</p>
+  <hr class="my-4">
+{{article.content | raw }}
+  
+  {% if is_granted('ROLE_ADMIN') %}
+
+				<a href="{{path('blog_edit',{'id':article.id})}}" class="btn btn-success btn-lg">Changer</a>
+				<a href="{{path('blog_delete',{'id':article.id})}}" class="btn btn-danger btn-lg">Supprimer</a>
+			{% endif %}
+  
+</div>
+	
+	{% if app.user and app.user.enabled %}
+	<div class="container  bg-secondary text-white mb-2 p-3">
+
+		{{ form_start(commentForm)}}
+		{{  form_row(commentForm.author,{'label' : "Pseudo",'attr': {'placeholder': 'Nom de l\'auteur'}}) }}
+        {{  form_row(commentForm.content, {'label' : "Commentaire",'attr': {'placeholder': 'Votre contenu'}}) }}
+
+        <button type="submit" class="btn btn-success mb-2">Commenter</button>
+
+     {{form_end(commentForm)}}
+
+</div>
+    {% else %}
+        <h5>Vous ne pouvez pas commenter si vous n'etes pas connecté veuillez allez vous <a href="{{path('security_login')}}">Connectez </a> sinon venez vous <a href="{{path('security_registration')}}">Inscrire</a>  ou veuiller regarder votre boite mail pour cliquer sur le lien d'inscription si ce n'est pas déjà fait </h5>
+    {% endif %}
+
+<section id="commentaire">
+
+{% if article.comments | length <= 1 %}
+
+    <h3>{{article.comments | length}}
+		Commentaire :</h3>
+{% else %}
+	
+<h3>{{article.comments | length}}
+		Commentaires :</h3>
+{% endif %}
+
+	{% for comment in article.comments %}
+
+
+	<div class="container-fluid bg-light mb-3 p-3">
+<h5>{{ comment.author}}(<small> Posté le {{comment.createdAt | date('d/m/Y à H:i')}}</small>)</h5>
+<p>{{comment.content | raw}}</p>
+
+					{% if comment.signalement == 0 %}
+					
+					<a href="{{path('blog_signalement',{'id':comment.id})}}" class="btn btn-danger mb-2">signaler</a>
+
+					{% else %}
+						<p> Ce commentaire est déjà signalé</p>
+                    {% endif %}
+
+</div>
+		
+
+		
+	{% endfor %}
+
+
+</section>
+{% endblock %}
+

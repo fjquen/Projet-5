@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+
+		<title>
+			{% block title %}DocMedia{% endblock %}
+		</title>
+
+<style>{% include 'css/style.css' %}</style>
+		<link rel="stylesheet" href="https://bootswatch.com/4/pulse/bootstrap.min.css">
+          <link rel="shortcut icon" type="image/png" href="{{ asset('image/Favicon_Gaming-Mag.png') }}"/>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			
+
+			{% if app.user %}
+			<a class="navbar-brand" href="{{path('home')}}">Bienvenue {{ app.user.username }}</a>
+			
+			{% else %}
+				
+			<a class="navbar-brand" href="{{path('home')}}">DocMedia </a>
+			{% endif %}
+			
+
+			
+			<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="navbar-collapse collapse" id="navbarColor01">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="{{path('home')}}">Accueil</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{path('blog')}}">Article</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{path('blog_critique')}}">Critique</a>
+					</li>
+
+
+					{% if is_granted('ROLE_ADMIN') and  app.user.enabled %}
+
+						<li class="nav-item">
+							<a class="nav-link" href="{{path('blog_create')}}">Créer un article</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{path('blog_create_critique')}}">Créer une critique</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{path('admin')}}">Admin</a>
+						</li>
+            
+					{% endif %}
+
+
+					{% if not app.user %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{path('security_registration')}}">Inscription</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{{ path('security_login')}}" class="nav-link">Connexion</a>
+						</li>
+					{% elseif app.user.enabled %}
+						<li class="nav-item">
+							<a href="{{ path('security_logout')}}" class="nav-link">Déconnexion</a>
+						</li>
+					{% elseif app.user %}
+						<li class="nav-item">
+							<a href="{{ path('security_logout')}}" class="nav-link">Déconnexion</a>
+						</li>
+					{% endif %}
+				</ul>
+				
+			</div>
+		</nav>
+		<div class="container"> {% block body %}{% endblock %}
+			</div>
+			{% block javascripts %}
+				<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+			{% endblock %}
+
+		</body>
+	</html>
+

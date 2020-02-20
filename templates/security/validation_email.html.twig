@@ -1,0 +1,19 @@
+{%  extends 'base.html.twig'  %}
+
+
+{%   block body  %}
+
+
+<div class="container d-flex  justify-content-center w-75">
+	<div class="d-flex flex-column  align-content-center flex-wrap">
+		<h2>
+			Envoi de mail de validation de compte !
+		</h2>
+		<p>
+			Votre lien de confirmation de compte a été envoyé dans votre boîte mail.
+		</p>
+		<img class=" w-50 ml-5" src=" {{ asset('image/mail.png') }}" alt="">
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+.homefigure {
+    border: thin #c0c0c0 solid;
+    display: flex;
+    flex-flow: column;
+    padding: 5px;
+    max-width: 220px;
+    margin: auto;
+}
+
+.home {
+    background-color: #222;
+    color: #fff;
+    padding: 3px;
+    text-align: center;
+}
+
+.note {
+    background-color: purple;
+    color: white;
+    max-width: 50px;
+    font-size: 20px;
+    display: block;
+    position: relative;
+    padding: 10px;
+    top: 50px;
+}

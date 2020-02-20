@@ -1,0 +1,18 @@
+{%  extends 'base.html.twig'  %}
+
+{%   block body  %}
+
+    
+<div class="container d-flex  justify-content-center ">
+	<div class="d-flex flex-column">
+		<h2>
+			Signalement du commentaire !
+		</h2>
+		<p>
+			Le commentaire a été signalé veuiller retourner à <a href="{{path('home')}}" >l'accueil</a>.
+		</p>
+        <img src="{{ asset('image/valid-vector.jpg') }}" alt="">
+	</div>
+</div>
+
+{% endblock %}

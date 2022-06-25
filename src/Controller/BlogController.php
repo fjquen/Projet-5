@@ -14,7 +14,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\CommentCritiqueRepository;
 use App\Repository\CommentRepository;
 use App\Repository\CritiqueRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

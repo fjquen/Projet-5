@@ -6,11 +6,11 @@ use App\Entity\Article;
 use App\Entity\CategoryNews;
 use App\Entity\Comment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class ArticleFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load( ObjectManager $manager)
     {
         $faker= \Faker\Factory::create('fr_FR');
 
@@ -28,7 +28,7 @@ class ArticleFixtures extends Fixture
                 
                 $article= new Article();
 
-                $content= '<p>'. join($faker->paragraphs(1),'<p></p>').'</p>';
+                $content= '<p>'. join($faker->paragraphs(1)).'</p>';
 
                 $article->setTitle($faker->sentence())
                         ->setContent($content)
@@ -41,7 +41,7 @@ class ArticleFixtures extends Fixture
             for($k=1; $k<=mt_rand(4,8);$k++){
                 $comment= new Comment();
 
-                $content= '<p>'. join($faker->paragraphs(2),'<p></p>').'</p>';
+                $content= '<p>'. join($faker->paragraphs(2)).'</p>';
 
                 $now= new \DateTime();
                 $interval=$now->diff($article->getCreatedAt());

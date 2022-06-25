@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Critique;
 use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class CritiqueFixtures extends Fixture
 {
@@ -26,7 +26,7 @@ class CritiqueFixtures extends Fixture
         for($i=1; $i <= 10; $i++){
             $critique= new Critique();
 
-            $content= '<p>'. join($faker->paragraphs(1),'<p></p>').'</p>';
+            $content= '<p>'. join($faker->paragraphs(1)).'</p>';
 
             $critique->setTitle($faker->sentence())
                      ->setContent($content)

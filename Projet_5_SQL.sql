@@ -222,17 +222,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `enabled` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649F85E0677` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`id`, `email`, `username`, `password`, `roles`, `confirmation_token`, `enabled`) VALUES
-(20, 'blogjeanfortoche@gmx.fr', 'joker', '$2y$13$38PvW.0e69kg266x3p15quSDw9I9CxIwlWTHMdCeVrgVS518GSfZu', 'a:0:{}', NULL, 1),
-(21, 'fjquen@gmail.com', 'thanos', '$2y$13$JFkot.OitUBsz8S80qJ4JuuqcquTe3Sah6qL151vbyQFJGTuA/Hb.', 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', NULL, 1),
-(31, 'pototron@gmx.fr', 'robin', '$2y$13$JJWPbAxP1UnUVVlGzkvMZ.Kp.JE4ydfm1lY/8pGlnD1NR9vJMGvrK', 'a:0:{}', NULL, 1),
-(61, 'blogfortoche@gmx.fr', 'batwoman', '$2y$13$Ym51Zz6DmWyQIViGxIcU2uKjyZ1tU.TO.mikkdyGiakXJ6Dlds0ta', 'a:0:{}', NULL, 1);
+(21, 'fjquen@gmail.com', 'thanos', '$2y$13$JFkot.OitUBsz8S80qJ4JuuqcquTe3Sah6qL151vbyQFJGTuA/Hb.', 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', NULL, 1);
 
 --
 -- Contraintes pour les tables déchargées

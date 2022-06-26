@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\CategoryNews;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method CategoryNews|null find($id, $lockMode = null, $lockVersion = null)
